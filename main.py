@@ -1,5 +1,6 @@
 import pygame
 import noise
+import random
 pygame.init()
 
 SCREEN_WIDTH  = 640
@@ -26,14 +27,17 @@ class World:
         self.tiles = []
 
     def generate(self, x, z):
+        xOffset = random.randint(-1024, 1024)
+        zOffset = random.randint(-1024, 1024)
+        self.tiles = []
         for xLoop in range(x):
             for zLoop in range(z):
-                y = noise.pnoise2(xLoop * .02, zLoop * .02, octaves=NOISE_OCTAVES)
+                y = noise.pnoise2(xLoop * .02 + xOffset, zLoop * .02 + zOffset, octaves=NOISE_OCTAVES)
                 color = WATER_COLOR
 
                 if y > 0:
                     color = SAND_COLOR
-                if y > 0.1:
+                if y > 0.05:
                     color = GRASS_COLOR
 
                 tileObject = Tile(xLoop, y, zLoop, color)
@@ -47,6 +51,11 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                world.generate(SCREEN_WIDTH // TILE_SIZE, SCREEN_HEIGHT // TILE_SIZE)
+
+    SCREEN.fill((0, 0, 0))
 
     for tile in world.tiles:
         pygame.draw.rect(SCREEN, tile.color, pygame.Rect(tile.x * TILE_SIZE, tile.z * TILE_SIZE, TILE_SIZE, TILE_SIZE))
