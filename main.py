@@ -1,59 +1,11 @@
 import pygame
-import noise
-import random
 pygame.init()
 
-SCREEN_WIDTH  = 640
-SCREEN_HEIGHT = 480
-TILE_SIZE     = 2
+from modules.constants import *
+from modules.world import *
 
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Terrain Generator')
-
-SEA_COLOR      = (0, 0, 160)
-SHORE_COLOR    = (0, 0, 200)
-SAND_COLOR     = (200, 200, 0)
-GRASS_COLOR    = (0, 200, 0)
-HILL_COLOR     = (0, 160, 0)
-MOUNTAIN_COLOR = (40, 40, 40)
-SNOW_COLOR     = (255, 255, 255)
-NOISE_OCTAVES  = 8
-
-class Tile:
-    def __init__(self, x, y, z, color):
-        self.x = x
-        self.y = y
-        self.z = z
-        self.color = color
-
-class World:
-    def __init__(self):
-        self.tiles = []
-
-    def generate(self, x, z):
-        xOffset = random.randint(-4096, 4096)
-        zOffset = random.randint(-4096, 4096)
-        self.tiles = []
-        for xLoop in range(x):
-            for zLoop in range(z):
-                y = noise.pnoise2(xLoop * .02 + xOffset, zLoop * .02 + zOffset, octaves=NOISE_OCTAVES)
-                color = SEA_COLOR
-
-                if y > -0.1:
-                    color = SHORE_COLOR
-                if y > 0.05:
-                    color = SAND_COLOR
-                if y > 0.1:
-                    color = GRASS_COLOR
-                if y > 0.2:
-                    color = HILL_COLOR
-                if y > 0.3:
-                    color = MOUNTAIN_COLOR
-                if y > 0.4:
-                    color = SNOW_COLOR
-
-                tileObject = Tile(xLoop, y, zLoop, color)
-                self.tiles.append(tileObject)
 
 world = World()
 world.generate(SCREEN_WIDTH // TILE_SIZE, SCREEN_HEIGHT // TILE_SIZE)

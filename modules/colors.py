@@ -1,0 +1,7 @@
+SEA_COLOR      = (0, 0, 160)
+SHORE_COLOR    = (0, 0, 200)
+SAND_COLOR     = (200, 200, 0)
+GRASS_COLOR    = (0, 200, 0)
+HILL_COLOR     = (0, 160, 0)
+MOUNTAIN_COLOR = (40, 40, 40)
+SNOW_COLOR     = (255, 255, 255)
