@@ -42,10 +42,6 @@ while running:
             running = False
 
     for tile in world.tiles:
-        print("Tile")
-        print(f"X: {tile.x}")
-        print(f"Y: {tile.y}")
-        print(f"Z: {tile.z}")
-        print(f"Color: {tile.color}")
+        pygame.draw.rect(SCREEN, tile.color, pygame.Rect(tile.x * TILE_SIZE, tile.z * TILE_SIZE, TILE_SIZE, TILE_SIZE))
 
     pygame.display.update()
