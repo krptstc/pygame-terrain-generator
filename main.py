@@ -1,4 +1,5 @@
 import pygame
+import noise
 pygame.init()
 
 SCREEN_WIDTH  = 640
