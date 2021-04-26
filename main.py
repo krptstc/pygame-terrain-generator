@@ -10,12 +10,14 @@ TILE_SIZE     = 2
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Terrain Generator')
 
-SEA_COLOR     = (0, 0, 160)
-SHORE_COLOR   = (0, 0, 200)
-SAND_COLOR    = (200, 200, 0)
-GRASS_COLOR   = (0, 200, 0)
-HILL_COLOR    = (0, 160, 0)
-NOISE_OCTAVES = 4
+SEA_COLOR      = (0, 0, 160)
+SHORE_COLOR    = (0, 0, 200)
+SAND_COLOR     = (200, 200, 0)
+GRASS_COLOR    = (0, 200, 0)
+HILL_COLOR     = (0, 160, 0)
+MOUNTAIN_COLOR = (40, 40, 40)
+SNOW_COLOR     = (255, 255, 255)
+NOISE_OCTAVES  = 8
 
 class Tile:
     def __init__(self, x, y, z, color):
@@ -45,6 +47,10 @@ class World:
                     color = GRASS_COLOR
                 if y > 0.2:
                     color = HILL_COLOR
+                if y > 0.3:
+                    color = MOUNTAIN_COLOR
+                if y > 0.4:
+                    color = SNOW_COLOR
 
                 tileObject = Tile(xLoop, y, zLoop, color)
                 self.tiles.append(tileObject)
